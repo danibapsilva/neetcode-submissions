@@ -1,0 +1,24 @@
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        l, r = 0, len(matrix) - 1
+        while l < r:
+            for i in range(r - l):
+                top, bottom = l, r
+
+                # save the topLeft cell
+                topLeft = matrix[top][l + i]
+
+                # move bottomLeft to topLeft
+                matrix[top][l + i] = matrix[bottom - i][l]
+
+                # move bottomRight to bottomLeft
+                matrix[bottom - i][l] = matrix[bottom][r - i]
+
+                # move topRight into bottomRight
+                matrix[bottom][r - i] = matrix[top + i][r]
+
+                # move saved topLeft into topRight
+                matrix[top + i][r] = topLeft
+            
+            # shring/offset the new cells to rotate by 1
+            l, r = l + 1, r - 1
